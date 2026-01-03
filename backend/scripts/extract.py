@@ -41,6 +41,7 @@ def extract_json(text: str) -> dict:
             return json.loads(match.group(0))
         except json.JSONDecodeError:
             return {}
+    return {}
 
 
 if __name__ == "__main__":
