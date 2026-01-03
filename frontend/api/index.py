@@ -1,5 +1,4 @@
 from flask import Flask, jsonify
-from flask_cors import CORS  # Add this import
 import csv
 import os
 from datetime import datetime
@@ -85,11 +84,3 @@ def home():
             'health': '/health'
         }
     })
-
-def handler(event, context):
-    from flask import Flask
-    return app(event, context)
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5328))
-    app.run(debug=True, host='0.0.0.0', port=port)
