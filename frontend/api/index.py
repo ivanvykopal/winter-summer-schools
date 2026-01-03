@@ -5,44 +5,27 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = os.path.join(BASE_DIR, "data", "extracted_information.csv")
+
 def read_csv_file():
-    """Read and parse the CSV file preserving original formats"""
-    # Define possible paths for the CSV file
-    possible_paths = [
-        os.path.join(os.getcwd(), 'data', 'extracted_information.csv'),
-        os.path.join(os.getcwd(), 'extracted_information.csv'),
-        os.path.join(os.path.dirname(__file__), '..', 'data', 'extracted_information.csv'),
-        os.path.join(os.path.dirname(__file__), '..', 'extracted_information.csv'),
-        os.path.join(os.path.dirname(__file__), 'data', 'extracted_information.csv'),
-    ]
     
     csv_data = []
     
-    for csv_path in possible_paths:
-        if os.path.exists(csv_path):
-            try:
-                print(f"Attempting to read CSV from: {csv_path}")
-                with open(csv_path, 'r', encoding='utf-8') as file:
-                    csv_reader = csv.DictReader(file)
-                    for row in csv_reader:
-                        # Keep original data as-is, just clean empty strings
-                        cleaned_row = {}
-                        for key, value in row.items():
-                            # Keep N/A as None/Null, empty strings as None
-                            if value == '' or value == 'N/A':
-                                cleaned_row[key] = None
-                            else:
-                                cleaned_row[key] = value
-                        csv_data.append(cleaned_row)
-                
-                print(f"Successfully loaded {len(csv_data)} records from: {csv_path}")
-                break
-            except Exception as e:
-                print(f"Error reading CSV from {csv_path}: {e}")
-                continue
-    
-    if not csv_data:
-        print("Warning: No CSV data loaded from any location")
+    if not os.path.exists(CSV_PATH):
+        raise FileNotFoundError(f"CSV not found at {CSV_PATH}")
+
+    with open(CSV_PATH, 'r', encoding='utf-8') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            cleaned_row = {}
+            for key, value in row.items():
+                # Keep N/A as None/Null, empty strings as None
+                if value == '' or value == 'N/A':
+                    cleaned_row[key] = None
+                else:
+                    cleaned_row[key] = value
+            csv_data.append(cleaned_row)
     
     return csv_data
 
