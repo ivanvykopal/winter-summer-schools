@@ -50,6 +50,7 @@ if __name__ == "__main__":
     try:
         df = pd.read_csv(path)
         df_dict = df.set_index("link").to_dict(orient="index")
+        print(f"Loaded existing data with {len(df)} entries.")
     except FileNotFoundError:
         df = pd.DataFrame(columns=["name", "link", "venue", "date", "application_deadline"])
         df_dict = {}
@@ -73,8 +74,10 @@ if __name__ == "__main__":
         text_content = soup.get_text(separator='\n')
         text_content = ' '.join(text_content.split())
         
-        information = extract_information(text_content)        
+        information = extract_information(text_content)     
+        print(f"Extracted information for {link}:\n{information}\n")   
         info_json = extract_json(information)
+        print(f"Parsed JSON for {link}:\n{info_json}\n")
         venue = info_json.get("venue", "")
         date = info_json.get("date", "")
         application_deadline = info_json.get("application_deadline", "N/A")
