@@ -4,9 +4,17 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/schools.module.css'; 
 
+interface School {
+  name: string;
+  link: string;
+  venue: string;
+  date: string;
+  application_deadline?: string;
+}
+
 export default function Home() {
 
-  const [schools, setSchools] = useState([]);
+  const [schools, setSchools] = useState<School[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -23,7 +31,7 @@ export default function Home() {
         const data = result.data || result;
         setSchools(data);
         setLoading(false);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error loading schools:', err);
         setError(err.message);
         setLoading(false);
