@@ -10,23 +10,10 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getBackendUrl = () => {
-    if (typeof window !== 'undefined') {
-      // Client-side: check if we're in production
-      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        // In production, API should be on the same domain or a subdomain
-        return process.env.NEXT_PUBLIC_BACKEND_URL || '';
-      }
-    }
-    // Server-side or local development
-    return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5328';
-  };
-
   useEffect(() => {
     const loadSchoolsData = async () => {
       try {
-        const backendUrl = getBackendUrl();
-        const apiUrl = backendUrl ? `${backendUrl}/api/schools` : '/api/schools';
+        const apiUrl = '/api/schools';
         
         const response = await fetch(apiUrl);
         if (!response.ok) {
