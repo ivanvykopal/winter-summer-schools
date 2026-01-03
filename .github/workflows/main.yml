@@ -1,6 +1,6 @@
 on:
   schedule:
-    # Runs every hour
+    # Runs once a week at midnight on Sunday
     - cron: "0 0 * * 0"
   workflow_dispatch:
 
@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true # allows pushing back with GITHUB_TOKEN
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,3 +33,14 @@ jobs:
           OPENWEBUI_API_URL: ${{ secrets.OPENWEBUI_API_URL }}
         run: |
           python -m scripts.extract
+
+      - name: Commit updated CSV
+        working-directory: backend
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/api/data/extracted_information.csv
+          git diff --cached --quiet || git commit -m "Update extracted_information.csv [skip ci]"
+          git push origin HEAD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

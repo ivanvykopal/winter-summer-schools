@@ -27,20 +27,6 @@ class OpenWebUIModel():
         
     def set_system_prompt(self, system_prompt: str) -> None:
         self.system_prompt = system_prompt
-        
-    def save_logs(self, logs: List[dict]) -> None:
-        """
-        Save logs to a specified path.
-        
-        Args:
-            logs (List[dict]): The logs to save.
-            path (str): The file path where logs will be saved.
-        """
-        path = './cache/logs/openwebui_logs.txt'
-        # append the logs to the file
-        with open(path, 'a', encoding='utf-8') as file:
-            for log in logs:
-                file.write(json.dumps(log, ensure_ascii=False) + '\n')
     
     def generate(self, prompt: Union[str, List[str]], max_tokens: int = None, **kwargs) -> Union[str, List[str]]:
         
@@ -79,7 +65,6 @@ class OpenWebUIModel():
                         pattern = r"<think>.*?</think>"
                         answer = re.sub(pattern, "", answer, flags=re.DOTALL)
 
-                    # self.save_logs([{"prompt": p, "response": answer}])
                     answers.append(answer.strip())
                     break
                 except Exception as e:
@@ -87,7 +72,6 @@ class OpenWebUIModel():
                     if retry_count == max_retries:
                         print(f"Failed to generate response after {max_retries} attempts: {e}")
                         answers.append("Error generating response")
-                        # self.save_logs([{"prompt": p, "response": "Error generating response"}])
                         
         if not is_list:
             answers = answers[0]

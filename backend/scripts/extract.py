@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 from tqdm import tqdm
+import os
+
 
 INSTRUCTION = '''
 Extract the venue and the date where the summer or winter school is held from the following content. In addition, if there is deadline information for applications, please extract that as well. Use JSON format as shown in the example.
@@ -46,7 +48,8 @@ def extract_json(text: str) -> dict:
 
 if __name__ == "__main__":
     model = OpenWebUIModel(name="gpt-oss-120b", max_tokens=1024)
-    path = '../frontend/api/data/extracted_information.csv'
+    REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    path = os.path.join(REPO_ROOT, "frontend", "api", "data", "extracted_information.csv")
     
     try:
         df = pd.read_csv(path)
@@ -76,9 +79,7 @@ if __name__ == "__main__":
         text_content = ' '.join(text_content.split())
         
         information = extract_information(text_content)     
-        print(f"Extracted information for {link}:\n{information}\n")   
         info_json = extract_json(information)
-        print(f"Parsed JSON for {link}:\n{info_json}\n")
         venue = info_json.get("venue", "")
         date = info_json.get("date", "")
         application_deadline = info_json.get("application_deadline", "N/A")
