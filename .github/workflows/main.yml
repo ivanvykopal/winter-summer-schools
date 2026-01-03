@@ -35,7 +35,6 @@ jobs:
           python -m scripts.extract
 
       - name: Commit updated CSV
-        working-directory: backend
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
