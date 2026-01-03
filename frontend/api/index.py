@@ -5,14 +5,6 @@ import os
 from datetime import datetime
 
 app = Flask(__name__)
-CORS(app, resources={
-    r"/api/*": {
-        "origins": ["*"],  # In production, specify your frontend domain
-        "methods": ["GET", "OPTIONS"],
-        "allow_headers": ["Content-Type"]
-    }
-})
-
 
 def read_csv_file():
     """Read and parse the CSV file preserving original formats"""
