@@ -110,6 +110,10 @@ LINKS = [
     {
         "name": "AI4Science Summer School",
         "link": "https://ai4science.sciencesconf.org/"
+    },
+    {
+        "name": "LUT Summer School",
+        "link": "https://www.lut.fi/en/studies/lut-summer-school"
     }
 
 ]
