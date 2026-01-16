@@ -22,7 +22,7 @@ def read_csv_file():
             for key, value in row.items():
                 # Keep N/A as None/Null, empty strings as None
                 if value == '' or value == 'N/A':
-                    cleaned_row[key] = None
+                    cleaned_row[key] = ''
                 else:
                     cleaned_row[key] = value
             csv_data.append(cleaned_row)
