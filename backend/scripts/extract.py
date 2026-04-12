@@ -171,6 +171,8 @@ if __name__ == "__main__":
     
     try:
         df = pd.read_csv(path)
+        # Drop duplicate links, keeping the first occurrence
+        df = df.drop_duplicates(subset=["link"], keep="first")
         df_dict = df.set_index("link").to_dict(orient="index")
         print(f"Loaded existing data with {len(df)} entries.")
     except FileNotFoundError:
