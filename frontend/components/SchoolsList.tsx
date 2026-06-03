@@ -189,7 +189,7 @@ export default function SchoolsList({ initialSchools, loading, error }: Props) {
       ) : (
         <Grid container spacing={3}>
           {filtered.map((sch, i) => (
-            <Grid key={i}>
+            <Grid key={i} size={{ xs: 12, sm: 6, md: 4 }}>
               <Card
                 elevation={0}
                 sx={{

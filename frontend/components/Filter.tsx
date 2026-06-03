@@ -42,7 +42,7 @@ export default function Filter({
       }}
     >
       <Grid container spacing={3}>
-        <Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <TextField
             fullWidth
             label="School Name"
@@ -66,7 +66,7 @@ export default function Filter({
           />
         </Grid>
 
-        <Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <FormControl fullWidth>
             <InputLabel id="status-label" shrink>Registration Status</InputLabel>
             <Select
@@ -96,7 +96,7 @@ export default function Filter({
           </FormControl>
         </Grid>
 
-        <Grid >
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <FormControl fullWidth>
             <InputLabel id="sort-label">Sort by Start Date</InputLabel>
             <Select
@@ -124,7 +124,7 @@ export default function Filter({
           </FormControl>
         </Grid>
 
-        <Grid>
+        <Grid size={{ xs: 12 }}>
           <Box
             sx={{
               p: 2,
@@ -149,7 +149,7 @@ export default function Filter({
             </Typography>
 
             <Grid container spacing={2}>
-              <Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   type="date"
                   label="Start Date From"
@@ -169,7 +169,7 @@ export default function Filter({
                 />
               </Grid>
 
-              <Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   type="date"
                   label="Start Date To"
@@ -189,7 +189,7 @@ export default function Filter({
                 />
               </Grid>
 
-              <Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   type="date"
                   label="Application Deadline (≤)"
